@@ -1,7 +1,6 @@
 package com.example.taskly;
 
 import android.animation.ObjectAnimator; // Wichtig: ObjectAnimator importieren
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -13,7 +12,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-public class SplashScreen extends AppCompatActivity {
+public class activity_splashScreen extends AppCompatActivity {
 
     private static final int SPLASH_SCREEN_TIMEOUT = 5000; // 2 Sekunden
 
