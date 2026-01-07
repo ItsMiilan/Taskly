@@ -12,13 +12,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Taskly">
         <activity
+            android:name=".CompletedTasksActivity"
+            android:exported="false" />
+        <activity
             android:name=".acitivity_MyTasks"
             android:exported="false" />
         <activity
             android:name=".activity_newTask"
             android:exported="false" />
         <activity
-            android:name=".activity_splashScreen"
+            android:name="com.example.taskly.SplashScreen"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
