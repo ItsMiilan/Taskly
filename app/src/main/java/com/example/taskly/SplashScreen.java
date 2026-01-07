@@ -1,10 +1,11 @@
 package com.example.taskly;
 
-import android.animation.ObjectAnimator; // Wichtig: ObjectAnimator importieren
+import android.animation.ObjectAnimator;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.widget.ProgressBar; // Wichtig: ProgressBar importieren
+import android.widget.ProgressBar;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,9 +13,9 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-public class activity_splashScreen extends AppCompatActivity {
+public class SplashScreen extends AppCompatActivity {
 
-    private static final int SPLASH_SCREEN_TIMEOUT = 5000; // 2 Sekunden
+    private static final int SPLASH_SCREEN_TIMEOUT = 2000; // 2 Sekunden
 
     private ProgressBar progressBar;
 
@@ -27,18 +28,15 @@ public class activity_splashScreen extends AppCompatActivity {
         progressBar = findViewById(R.id.progressBar);
 
         ObjectAnimator progressAnimator = ObjectAnimator.ofInt(progressBar, "progress", 0, 100);
-        progressAnimator.setDuration(SPLASH_SCREEN_TIMEOUT); // Die Animation dauert so lange wie der Splash-Screen
+        progressAnimator.setDuration(SPLASH_SCREEN_TIMEOUT); // Animation dauert 2 Sekunden
         progressAnimator.start();
 
-        // Handler for next activity
         new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
             @Override
             public void run() {
-                // Wechsle zur MyTasksActivity
-                //Intent intent = new Intent(SplashScreen.this, MyTasksActivity.class);
-                //startActivity(intent);
+                Intent intent = new Intent(SplashScreen.this, acitivity_MyTasks.class);
+                startActivity(intent);
 
-                // Schließe den SplashScreen
                 finish();
             }
         }, SPLASH_SCREEN_TIMEOUT);
