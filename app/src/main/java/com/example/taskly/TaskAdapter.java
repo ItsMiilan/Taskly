@@ -52,37 +52,39 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
         holder.checkBoxTask.setChecked(currentTask.isCompleted());
 
         // --- Set up the listener for user interaction ---
-        holder.checkBoxTask.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (checkedChangeListener != null) {
-                    // getAdapterPosition() is the reliable way to get the position in a listener
+        holder.checkBoxTask.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (checkedChangeListener != null) {
+                if (holder.getAdapterPosition() != RecyclerView.NO_POSITION) {
                     checkedChangeListener.onTaskCheckedChanged(holder.getAdapterPosition(), isChecked);
                 }
             }
         });
 
-
         if (currentTask.isCompleted()) {
-            // Style for completed tasks
+            // --- Style for COMPLETED tasks ---
+            holder.textViewTaskDescription.setVisibility(View.VISIBLE);
+            // Add strikethrough and fade out
             holder.textViewTaskTitle.setPaintFlags(holder.textViewTaskTitle.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+            holder.textViewTaskDescription.setPaintFlags(holder.textViewTaskDescription.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
             holder.textViewTaskTitle.setAlpha(0.5f);
-            holder.textViewTaskDescription.setVisibility(View.GONE); // HIDE the description
+            holder.textViewTaskDescription.setAlpha(0.5f);
             holder.textViewTaskDueDate.setAlpha(0.5f);
 
-            // Card styling for completed tasks (neutral)
+            // Set card to neutral state
             holder.cardView.setCardBackgroundColor(Color.parseColor("#2C2C2C"));
             holder.cardView.setStrokeWidth(0);
 
         } else {
-            // Style for active tasks
+            // --- Style for ACTIVE tasks ---
+            holder.textViewTaskDescription.setVisibility(View.VISIBLE);
+            // Remove strikethrough and reset alpha
             holder.textViewTaskTitle.setPaintFlags(holder.textViewTaskTitle.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));
+            holder.textViewTaskDescription.setPaintFlags(holder.textViewTaskDescription.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));
             holder.textViewTaskTitle.setAlpha(1.0f);
-            holder.textViewTaskDescription.setVisibility(View.VISIBLE); // SHOW the description
             holder.textViewTaskDescription.setAlpha(1.0f);
             holder.textViewTaskDueDate.setAlpha(1.0f);
 
-            // Card styling for active tasks (priority or normal)
+            // Handle priority styling
             if (currentTask.isPriority()) {
                 holder.cardView.setCardBackgroundColor(Color.parseColor("#4B4A2A")); // A darker yellow
                 holder.cardView.setStrokeColor(Color.parseColor("#fdd000"));
@@ -99,7 +101,6 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
         return tasks.size();
     }
 
-    // The ViewHolder class that holds the views for a single item
     public static class TaskViewHolder extends RecyclerView.ViewHolder {
         public MaterialCardView cardView;
         public CheckBox checkBoxTask;
