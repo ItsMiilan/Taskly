@@ -12,15 +12,15 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="16dp">
+        android:padding="12dp">
 
         <CheckBox
             android:id="@+id/checkBoxTask"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:buttonTint="@android:color/white"
-            android:scaleX="1.3"
-            android:scaleY="1.3"
+            android:scaleX="1.5"
+            android:scaleY="1.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -29,6 +29,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
+            android:fontFamily="sans-serif"
             android:text="Task Title"
             android:textColor="@android:color/white"
             android:textSize="16sp"
@@ -41,6 +42,7 @@
             android:id="@+id/textViewTaskDescription"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:fontFamily="sans-serif"
             android:text="Description..."
             android:textColor="@android:color/darker_gray"
             android:textSize="14sp"
@@ -52,8 +54,9 @@
             android:id="@+id/textViewTaskDueDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="12dp"
             android:background="@drawable/yellow_tag_background"
+            android:fontFamily="sans-serif"
             android:paddingStart="12dp"
             android:paddingTop="4dp"
             android:paddingEnd="12dp"
