@@ -12,8 +12,10 @@
         android:id="@+id/textViewCompletedTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="14dp"
-        android:layout_marginTop="32dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="68dp"
         android:fontFamily="serif"
         android:text="Completed Tasks"
         android:textColor="#D5D5D5"
@@ -26,7 +28,9 @@
         android:layout_height="match_parent"
         android:layout_above="@+id/bottomButtonContainer"
         android:layout_below="@id/textViewCompletedTitle"
-        android:layout_marginTop="16dp" />
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="12dp" />
 
     <LinearLayout
         android:id="@+id/bottomButtonContainer"
@@ -34,6 +38,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_marginTop="16dp"
+        android:layout_marginBottom="32dp"
         android:orientation="horizontal">
 
         <com.google.android.material.button.MaterialButton
@@ -46,6 +51,7 @@
             android:text="Back"
             android:textAllCaps="false"
             android:textColor="@android:color/white"
+            android:textSize="18sp"
             app:cornerRadius="20dp" />
 
         <com.google.android.material.button.MaterialButton
@@ -54,11 +60,14 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_weight="1"
-            android:backgroundTint="#fdd000"
+            android:backgroundTint="#202020"
             android:text="Clear"
             android:textAllCaps="false"
-            android:textColor="@android:color/white"
-            app:cornerRadius="20dp" />
+            android:textColor="#FBCF00"
+            android:textSize="18sp"
+            app:cornerRadius="20dp"
+            app:strokeColor="#FBCF00"
+            app:strokeWidth="2dp" />
 
     </LinearLayout>
 
