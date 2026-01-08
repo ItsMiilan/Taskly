@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -47,10 +48,24 @@ public class CompletedTasksActivity extends AppCompatActivity {
 
         // Set up listeners
         setupListeners();
+
+        // --- Handle Back Press using the modern OnBackPressedDispatcher ---
+        getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                // Package up the lists to send them back to the main activity
+                Intent resultIntent = new Intent();
+                resultIntent.putExtra("completed_tasks", (Serializable) completedTasks);
+                resultIntent.putExtra("tasks_to_uncomplete", (Serializable) tasksToUncomplete);
+                setResult(RESULT_OK, resultIntent);
+                finish(); // Finish the activity and go back
+            }
+        });
     }
 
     private void setupListeners() {
-        backButton.setOnClickListener(v -> onBackPressed());
+        // The back button now triggers the OnBackPressedDispatcher
+        backButton.setOnClickListener(v -> getOnBackPressedDispatcher().onBackPressed());
 
         clearButton.setOnClickListener(v -> {
             int size = completedTasks.size();
@@ -72,18 +87,8 @@ public class CompletedTasksActivity extends AppCompatActivity {
                 // Remove from the current list and notify adapter
                 completedTasks.remove(position);
                 completedTasksAdapter.notifyItemRemoved(position);
-                completedTasksAdapter.notifyItemRangeChanged(position, completedTasks.size());
             }
         });
     }
 
-    @Override
-    public void onBackPressed() {
-        // Package up the lists to send them back to the main activity
-        Intent resultIntent = new Intent();
-        resultIntent.putExtra("completed_tasks", (Serializable) completedTasks);
-        resultIntent.putExtra("tasks_to_uncomplete", (Serializable) tasksToUncomplete);
-        setResult(RESULT_OK, resultIntent);
-        super.onBackPressed(); // This will finish the activity
-    }
 }

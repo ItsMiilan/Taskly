@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.Nullable;
@@ -118,16 +119,26 @@ public class acitivity_MyTasks extends AppCompatActivity {
 
         if (resultCode == RESULT_OK && data != null) {
             if (requestCode == ADD_TASK_REQUEST) {
-                // Handle result from creating a new task
                 String title = data.getStringExtra("task_title");
-                String description = data.getStringExtra("task_description");
-                String dueDate = data.getStringExtra("task_due_date");
-                boolean isPriority = data.getBooleanExtra("task_priority", false);
+                boolean isDuplicate = false;
+                for (Task existingTask : upcomingTasks) {
+                    if (existingTask.getTitle().equalsIgnoreCase(title)) {
+                        isDuplicate = true;
+                        break; // Found a duplicate, no need to search further
+                    }
+                }
 
-                Task newTask = new Task(title, description, dueDate, isPriority);
+                if (isDuplicate) {
+                    Toast.makeText(this, "A task with this title already exists!", Toast.LENGTH_SHORT).show();
+                } else {
+                    String description = data.getStringExtra("task_description");
+                    String dueDate = data.getStringExtra("task_due_date");
+                    boolean isPriority = data.getBooleanExtra("task_priority", false);
 
-                upcomingTasks.add(newTask);
-                sortUpcomingTasksAndNotify(); // Sort the list and notify the adapter
+                    Task newTask = new Task(title, description, dueDate, isPriority);
+                    upcomingTasks.add(newTask);
+                    sortUpcomingTasksAndNotify();
+                }
 
             } else if (requestCode == VIEW_COMPLETED_TASKS_REQUEST) {
                 // Handle result from the completed tasks screen
